@@ -56,7 +56,7 @@ exist polynomials $𝑝, 𝑞 : NN → NN$ and a TM $M$ (verifier) with the foll
 To show that the problem is in NP, our verifier $M$ takes the Graph $G(V,E)$ and our color mapping $c$ as input and checks in $O(n^2)$ if $c$ is a satisfying mapping. \ 
 $M$ does this by accepting if the two connected vertices $u,v in V$ of every edge $e in E$ have 2 distinct colors.
 ]
-#pagebreak
+#pagebreak()
 
 == Theorem: 3-Coloring is NP-hard
 #proof[
