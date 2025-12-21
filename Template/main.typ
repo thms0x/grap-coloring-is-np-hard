@@ -56,9 +56,12 @@ exist polynomials $𝑝, 𝑞 : NN → NN$ and a TM $M$ (verifier) with the foll
 To show that the problem is in NP, our verifier $M$ takes the Graph $G(V,E)$ and our color mapping $c$ as input and checks in $O(n^2)$ if $c$ is a satisfying mapping. \ 
 $M$ does this by accepting if the two connected vertices $u,v in V$ of every edge $e in E$ have 2 distinct colors.
 ]
+#pagebreak
 
 == Theorem: 3-Coloring is NP-hard
-
+#proof[
+We want to show that 3 -Coloring is NP-hard by reducing from 3-SAT which is known to be NP-complete. \
+We create Graph G and inside a Triangle with 3 colors T, F and B and connect every variable like this. \
 #figure(
   canvas({
     import draw: *
@@ -113,6 +116,8 @@ $M$ does this by accepting if the two connected vertices $u,v in V$ of every edg
   }),
 )
 
+Then we need to create for every clause a gadget like this and connect the literals to the corresponding variable nodes. \
+
 #figure(
   canvas({
     import draw: *
@@ -157,3 +162,86 @@ $M$ does this by accepting if the two connected vertices $u,v in V$ of every edg
     line("g5", "g6")
   })
 )
+
+Connect the output node to the base triangle node B and the node F. \
+
+#figure(
+canvas({
+  import draw: *
+
+  let node-radius = 0.5
+  let white-node-style = (fill: white, stroke: black, radius: node-radius)
+  let gray-node-style = (fill: luma(150), stroke: black, radius: node-radius)
+  let label-offset = 0.7
+
+
+  circle((0, 4), ..white-node-style, name: "a")
+  content("a", $a$)
+  circle((0, 2), ..white-node-style, name: "b")
+  content("b", $b$)
+  circle((0, 0), ..white-node-style, name: "c")
+  content("c", $c$)
+
+  circle((2.5, 4), ..gray-node-style, name: "g1")
+  circle((2.5, 2), ..gray-node-style, name: "g2")
+
+  circle((5, 3), ..gray-node-style, name: "g3")
+  content((5, 3 + label-offset), $a or b$)
+
+  circle((7.5, 3), ..gray-node-style, name: "g4")
+  circle((7.5, 0), ..gray-node-style, name: "g5")
+
+  circle((10, 1.5), ..gray-node-style, name: "g6")
+  content((10, 1.5 + label-offset), $a or b or c$)
+
+  line("a", "g1")
+  line("b", "g2")
+  line("c", "g5")
+
+  line("g1", "g2")
+  line("g1", "g3")
+  line("g2", "g3")
+
+  line("g3", "g4")
+  line("g4", "g5")
+
+  line("g4", "g6")
+  line("g5", "g6")
+
+    let node-fill = white
+    let node-stroke-black = black
+    let node-stroke-blue = blue
+    let node-stroke-red = red
+    let node-stroke-green = green
+
+    circle((12.0, 3.0), radius: node-radius, fill: node-fill, stroke: node-stroke-green, name: "v1")
+    content("v1", [T]) 
+
+    circle((14.0, 3.0), radius: node-radius, fill: node-fill, stroke: node-stroke-red, name: "v2")
+    content("v2", [F])
+
+    circle((13.0, 0.0), radius: node-radius, fill: node-fill, stroke: node-stroke-blue, name: "v3")
+    content("v3", [B])
+
+    line("v1", "v2")
+    line("v2", "v3")
+    line("v1", "v3")
+    line("g6", "v3")
+
+})
+)
+
+Now we also prove that the mapping is done in polynomial time. \
+
+#figure(
+  image("f_diagram.png", width: 80%),
+  caption: "Source: Berechenbarkeit und Komplexität JKU Vorlesungsfolien WS 2025",
+  supplement: none
+
+)
+
+Now we are done.  
+Lets gooooo Simon!!! :)
+
+]
+
