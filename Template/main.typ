@@ -18,18 +18,31 @@
 == Introduction
 
 == What is the coloring problem?
-A k-coloring of vertices of a given graph $G(V,E)$ is a mapping $c: V(G) -> {1,2,...,k}$
-for which $(u, v) in E(G) -> c(u) != c(v)$ for any two vertices $u,v in G$ and a number $k in NN$.
-If the implication holds, we can call the graph proper.\
-\
-The k-coloring problem asks if a given grap $G$ can be properly colored using at most $k$ colors. If there is a satisfying mapping, we can call the mapping a proper k-coloring.
+Given a graph $G(V,E)$, the graph coloring problem assigns a color-mapping for each vertex to its corresponding color $c: V(G) -> {1,2,...,k}$
+for which $forall(u, v) in E(G): c(u) != c(v)$ for any two vertices $u,v in G$ and a number $k in NN$.
+If this statement holds, we can call the graph *proper*.
+
+The k-coloring problem asks if a given graph $G$ can be properly colored using at most $k$ distinct colors. 
+If such a satisfying mapping exists, we may call the mapping proper k-coloring.
 
 == 3-Coloring problem
-But for our following proof we explicitly decided to do the proof for the 3-Coloring problem. 
-That's because the 3-coloring problem is the smallest coloring problem which is contained in NP. \
-The 2-coloring problem is contained in P. We can easily solve this in $O(n)$ using something like Breadth First Search for example. \
-The 3-coloring problem is contained in NP-complete (proof follows) and if we can show that 3-Coloring is NP-complete, then 4-Coloring, 5-Coloring,..., k-Coloring are automatically NP-complete, since 3-Coloring is 
+For our following proof we explicitly decided to do the proof for the *3-coloring-problem*. 
+That is because the 3-coloring problem is the smallest coloring problem which is contained in *NP*. \
+The 2-coloring problem is contained in *P*. 
+We can easily solve this in $O(n)$ using something like Breadth-first search for example. 
+
+If we can prove that 3-Coloring is *NP-complete*, then 4-Coloring, 5-Coloring, ..., k-Coloring are NP-complete as well, since 3-Coloring is 
 just a restriction of them.
+
+== Justification of problem choice
+The graph coloring problem caught our attention due to us being already introduced to this problem in the lecture _Logic_ before.
+
+The fact that the nature of this problem is easily recognisable, and may be even understood by a child, 
+but requires deeper knowledge and understanding when trying to get a hold of efficient solving and ultimately proving its 
+membership in *NP-completeness*, was appealing to us.
+
+We believe, that the choice of this problem will lead us to a deeper understanding of the concept of _Karp reduction_
+and the wide-ranging impact it has on theoretical computer science.
 
 == Theorem: 3-Coloring is in NP
 #definition()[
