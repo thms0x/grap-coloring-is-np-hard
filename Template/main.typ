@@ -152,11 +152,13 @@ Let's assume we have a clause with only 2 literals: $x_1 or x_2$. This clause is
 #figure(
   canvas({
     import draw: *
-
+    let node-fill = white
     let node-radius = 0.5
 	let node-stroke-black = black
     let node-stroke-green = green
     let node-stroke-red = red
+	let node-stroke-blue = blue
+	
 	let stroke-thickness = 2pt
     let white-node-style = (fill: white, stroke: black, radius: node-radius)
     let gray-node-style = (fill: luma(150), stroke: black, radius: node-radius)
@@ -171,8 +173,14 @@ Let's assume we have a clause with only 2 literals: $x_1 or x_2$. This clause is
     circle((2.5, 4), ..gray-node-style, name: "g1")
     circle((2.5, 2), ..gray-node-style, name: "g2")
 
-    circle((5, 3), ..gray-node-style, name: "g3")
+    circle((5, 3), ..white-node-style, stroke: (paint: node-stroke-green, thickness: stroke-thickness), name: "g3")
     content((5, 3 + label-offset), $x_1 or x_2$)
+
+    circle((7.5, 4.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-red, thickness: stroke-thickness), name: "g4")
+    content("g4", [F])
+
+    circle((7.5, 2.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-blue, thickness: stroke-thickness), name: "g5")
+    content("g5", [B])
 
     line("x1", "g1")
     line("x2", "g2")
@@ -180,6 +188,11 @@ Let's assume we have a clause with only 2 literals: $x_1 or x_2$. This clause is
     line("g1", "g2")
     line("g1", "g3")
     line("g2", "g3")
+	
+	line("g4", "g3")
+	line("g5", "g3")
+	line("g4", "g5")
+
   }),
   caption: [Gadget graph for 2 literals]
 )
@@ -355,6 +368,7 @@ We follow the same approach as before: All input literals are to the very left o
     import draw: *
 
     let node-radius = 0.5
+	let node-fill = white
 	let node-stroke-black = black
     let node-stroke-green = green
     let node-stroke-red = red
@@ -384,6 +398,12 @@ We follow the same approach as before: All input literals are to the very left o
 	circle((10, 1.5), ..white-node-style, stroke: (paint: node-stroke-green, thickness: stroke-thickness), name: "g6")
     content((10, 1.5 + label-offset), $x_1 or x_2 or x_3$)
 
+	circle((12.5, 3), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-red, thickness: stroke-thickness), name: "g7")
+    content("g7", [F])
+
+    circle((12.5, 0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-blue, thickness: stroke-thickness), name: "g8")
+    content("g8", [B])
+
     line("x1", "g1")
     line("x2", "g2")
     line("x3", "g5")
@@ -397,11 +417,15 @@ We follow the same approach as before: All input literals are to the very left o
 
     line("g4", "g6")
     line("g5", "g6")
+	
+	line("g6", "g7")
+	line("g6", "g8")
+	line("g7", "g8")
   }),
   caption: [Gadget graph for 3-literals]
 )
 
-In total we have $2^3$ input assignments. Let’s see if we can achive a valid 3-coloring of the gadget graph for every assignment:
+In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-coloring of the gadget graph for every assignment:
 
 #pagebreak()
 
@@ -818,186 +842,13 @@ In total we have $2^3$ input assignments. Let’s see if we can achive a valid 3
 ]
 
 With the 3-literal gadget, we have proven soundness. If the assignment $x$ is not valid (all variable vertices are red), there is no valid coloring.
-In every other case, there is a valid coloring. Formally , we have shown: $x in.not L <-> f(x) in.not L'$. 
+In every other case, there is a valid coloring. Formally , we have shown: $x in.not L <-> f(x) in.not L'$.
 
-We create Graph G and inside a Triangle with 3 colors T, F and B and connect every variable like this. \
-#figure(
-  canvas({
-    import draw: *
-
-    let node-radius = 0.7
-	let stroke-thickness = 2pt
-    let node-fill = white
-    let node-stroke-black = black
-    let node-stroke-blue = blue
-    let node-stroke-red = red
-    let node-stroke-green = green
-
-    circle((0.0, 3.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-green, thickness: stroke-thickness), name: "v1")
-    content("v1", [T]) 
-
-    circle((4.0, 3.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-red, thickness: stroke-thickness), name: "v2")
-    content("v2", [F])
-
-    circle((2.0, 0.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-blue, thickness: stroke-thickness), name: "v3")
-    content("v3", [B])
-
-    circle((6.0, 1.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-black, thickness: stroke-thickness), name: "v4")
-    content("v4", [$x_i$])
-
-    circle((5.0, -1.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-black, thickness: stroke-thickness), name: "v5")
-    content("v5", [$overline(x_i) $])
-
-    circle((0.0, -3.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-black, thickness: stroke-thickness), name: "v6")
-    content("v6", [$x_2$])
-
-    circle((3.0, -3.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-black, thickness: stroke-thickness), name: "v7")
-    content("v7", [$overline(x_2) $])
-
-    circle((-3.0, -0.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-black, thickness: stroke-thickness), name: "v8")
-    content("v8", [$x_1$])
-
-    circle((-2.0, -2.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-black, thickness: stroke-thickness), name: "v9")
-    content("v9", [$overline(x_1) $])
-
-
-    line("v1", "v2")
-    line("v2", "v3")
-    line("v3", "v1")
-    line("v3", "v4")
-    line("v3", "v5")
-    line("v3", "v6")
-    line("v3", "v7")
-    line("v3", "v8")
-    line("v3", "v9")
-    line("v8", "v9")
-    line("v7", "v6")
-    line("v4", "v5")
-  }),
-)
-
-Then we need to create for every clause a gadget like this and connect the literals to the corresponding variable nodes. \
-
-#figure(
-  canvas({
-    import draw: *
-
-    let node-radius = 0.5
-    let white-node-style = (fill: white, stroke: black, radius: node-radius)
-    let gray-node-style = (fill: luma(150), stroke: black, radius: node-radius)
-    let label-offset = 0.7
-
-
-    circle((0, 4), ..white-node-style, name: "a")
-    content("a", $a$)
-    circle((0, 2), ..white-node-style, name: "b")
-    content("b", $b$)
-    circle((0, 0), ..white-node-style, name: "c")
-    content("c", $c$)
-
-    circle((2.5, 4), ..gray-node-style, name: "g1")
-    circle((2.5, 2), ..gray-node-style, name: "g2")
-
-    circle((5, 3), ..gray-node-style, name: "g3")
-    content((5, 3 + label-offset), $a or b$)
-
-    circle((7.5, 3), ..gray-node-style, name: "g4")
-    circle((7.5, 0), ..gray-node-style, name: "g5")
-
-    circle((10, 1.5), ..gray-node-style, name: "g6")
-    content((10, 1.5 + label-offset), $a or b or c$)
-
-    line("a", "g1")
-    line("b", "g2")
-    line("c", "g5")
-
-    line("g1", "g2")
-    line("g1", "g3")
-    line("g2", "g3")
-
-    line("g3", "g4")
-    line("g4", "g5")
-
-    line("g4", "g6")
-    line("g5", "g6")
-  })
-)
-
-Connect the output node to the base triangle node B and the node F. \
-
-#figure(
-canvas({
-  import draw: *
-
-  let node-radius = 0.5
-  let white-node-style = (fill: white, stroke: black, radius: node-radius)
-  let gray-node-style = (fill: luma(150), stroke: black, radius: node-radius)
-  let label-offset = 0.7
-
-
-  circle((0, 4), ..white-node-style, name: "a")
-  content("a", $a$)
-  circle((0, 2), ..white-node-style, name: "b")
-  content("b", $b$)
-  circle((0, 0), ..white-node-style, name: "c")
-  content("c", $c$)
-
-  circle((2.5, 4), ..gray-node-style, name: "g1")
-  circle((2.5, 2), ..gray-node-style, name: "g2")
-
-  circle((5, 3), ..gray-node-style, name: "g3")
-  content((5, 3 + label-offset), $a or b$)
-
-  circle((7.5, 3), ..gray-node-style, name: "g4")
-  circle((7.5, 0), ..gray-node-style, name: "g5")
-
-  circle((10, 1.5), ..gray-node-style, name: "g6")
-  content((10, 1.5 + label-offset), $a or b or c$)
-
-  line("a", "g1")
-  line("b", "g2")
-  line("c", "g5")
-
-  line("g1", "g2")
-  line("g1", "g3")
-  line("g2", "g3")
-
-  line("g3", "g4")
-  line("g4", "g5")
-
-  line("g4", "g6")
-  line("g5", "g6")
-
-    let node-fill = white
-    let node-stroke-black = black
-    let node-stroke-blue = blue
-    let node-stroke-red = red
-    let node-stroke-green = green
-
-    circle((12.0, 3.0), radius: node-radius, fill: node-fill, stroke: node-stroke-green, name: "v1")
-    content("v1", [T]) 
-
-    circle((14.0, 3.0), radius: node-radius, fill: node-fill, stroke: node-stroke-red, name: "v2")
-    content("v2", [F])
-
-    circle((13.0, 0.0), radius: node-radius, fill: node-fill, stroke: node-stroke-blue, name: "v3")
-    content("v3", [B])
-
-    line("v1", "v2")
-    line("v2", "v3")
-    line("v1", "v3")
-    line("g6", "v3")
-
-})
-)
-
-Now we also prove that the mapping is done in polynomial time. \
+\
 
 #figure(
   image("f_diagram.png", width: 80%),
   caption: "Source: Berechenbarkeit und Komplexität JKU Vorlesungsfolien WS 2025",
   supplement: none
 
-)
-
-]
+)]
