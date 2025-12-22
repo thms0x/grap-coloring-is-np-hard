@@ -855,7 +855,6 @@ Basically, we need to construct the graph $G$ from the 3-SAT instance in polynom
 
 In total, we can construct the graph $G$ in $O(n + m)$ time which is polynomial in the size of the 3-SAT instance. \
 Thus, our mapping function $f$ is computable in polynomial time.
-
 ]
 
 
