@@ -55,7 +55,7 @@ exist polynomials $𝑝, 𝑞 : NN → NN$ and a TM $M$ (verifier) with the foll
 #proof[
 To show that the problem is in NP, our verifier $M$ takes the Graph $G(V,E)$ and our color mapping $c$ as input and checks in $O(n^2)$ if $c$ is a satisfying mapping. \ 
 $M$ does this by accepting if the two connected vertices $u,v in V$ of every edge $e in E$ have 2 distinct colors.
-It is easy to show that the verifier only takes max. $n^2$ steps for verifing that $c$ is a satisfying mapping. In a graph G with n vertices, each vertex can be connected to max n-1 other vertices.
+It is easy to show that the verifier only takes max. $n^2$ steps for verifying that $c$ is a satisfying mapping. In a graph G with n vertices, each vertex can be connected to max n-1 other vertices.
 The result is a complete graph. Please note, that in graph coloring, we ignore edges $e = (v,v) in E$ where $v in V$ (loops).
 Now the verifier iterates over n vertices and for each vertex checks n-1 adjacent vertices for distinct coloring. In other words, the verifier checks $n dot (n-1)$ edges $e in E$.
 If an edge (v,u) was checked for distinct coloring, the two vertices do not have to be checked again in the reverse direction in another iteration. In other words, we can half the number of edges that need to be checked.
@@ -65,7 +65,7 @@ This proofs that 3-coloring is in NP.
 == Theorem: 3-Coloring is NP-hard
 #proof[
 We want to show that 3-Coloring is NP-hard by reducing from 3-SAT which is known to be NP-complete. \
-We have an arbitary 3-SAT formula F. We have a language L = {x $in {0,1}^*$: F(x) = 1} $subset.eq {0,1}^*$ and a language L' = {c $in {0,1}^*$: c is valid 3-coloring of graph G} $in {0,1}^*$.
+We have an arbitrary 3-SAT formula F. We have a language L = {x $in {0,1}^*$: F(x) = 1} $subset.eq {0,1}^*$ and a language L' = {c $in {0,1}^*$: c is valid 3-coloring of graph G} $in {0,1}^*$.
 In words, L contains all valid assignments for F and L' contains all valid 3-colorings for a graph G.
 We now create a polynomial-time algorithm f(x) that maps elements from L to L' and elements of $overline(L)$ to elements of $overline(L')$.
 Further, we create an algorithm that returns 1 iff f(x) $in L'$ iff x $in L$.
@@ -83,7 +83,7 @@ Examples of CNFs: \
 === Mapping variables to vertices
 A boolean variable can have two values True or False. To represent two distinct values in our graph, we can introduce two colors $c_1$, $c_2$ where $c_1 eq.not c_2$.
 We use the color green for True and red for False. \
-Furthermore we assume that our CNF formula has 3 new variables for every clause m. This is the worst case scenario for our CNF formula, resulting in $3 dot m$ variables $x_i in {x_1, ..., x_"3m"}$.
+Furthermore, we assume that our CNF formula has 3 new variables for every clause m. This is the worst case scenario for our CNF formula, resulting in $3 dot m$ variables $x_i in {x_1, ..., x_"3m"}$.
 For each of these variables $x_i$ we introduce 2 vertices in our graph: \
 
 #figure(
@@ -147,7 +147,7 @@ We call this process trapping. A vertex or multiple vertices are trapped to have
 With the concept of trapping, we can make sure that the variables form a valid boolean assignment. We can now build a logical or ($or$) clause.
 
 === 2-literal clauses: Introducing the gadget
-Let's assume we have a clause with only 2 literals: $x_1 or x_2$. This clause is false iff $x_1=0 "and" x_2=0$ and true in all other cases. To achive this logic, we introduce a new graph and call it gadget: \
+Let's assume we have a clause with only 2 literals: $x_1 or x_2$. This clause is false iff $x_1=0 "and" x_2=0$ and true in all other cases. To achieve this logic, we introduce a new graph and call it gadget: \
 
 #figure(
   canvas({
@@ -198,7 +198,7 @@ Let's assume we have a clause with only 2 literals: $x_1 or x_2$. This clause is
 )
 
 Our vertices $x_1$ and $x_2$ represent the input assignment. Let the vertex $x_1 or x_2$ represent the output. So for the given clause $x_1 or x_2$, the vertex to the very right should be green, when either or both vertices $x_1$, $x_2$ are green.
-In total we have $2^2$ input assignments. Let's see if we can achive a valid 3-coloring of the gadget graph for every assignment: \
+In total, we have $2^2$ input assignments. Let's see if we can achieve a valid 3-coloring of the gadget graph for every assignment: \
 
 #columns(2)[
 #figure(
@@ -359,8 +359,8 @@ How can we extend the 2-Literal gadget in order to support 3 literals? \
 We want something like this: If our 2-literal gadget has a valid 3-coloring, the 3-literal gadget should also have a valid 3-coloring.
 If the 2-literal gadget is invalid, there is still a chance, that our third literal, that we are introducing now, is valid and therefor the entire graph should be valid again. \
 This is tricky. We cannot proceed with the same coloring that we used in the 2-literal graph because of the case in @fig_notx1_notx2. \
-Here is why: Assume we have a 3-literal assignement: ($overline(x_1) or overline(x_2) or x_3$). Until now, our 2-literal gadget only processed $overline(x_1) or overline(x_2)$ and fails with a valid 3-coloring.
-But what aboud $x_3$? This single literal can still make the entire clause true. We need to do two things while constructing the 3-literal gadget: Add the new literal $x_3$ to the 2-literal gadget and adapt the coloring strategy that we used for the 2-literal gadget. \
+Here is why: Assume we have a 3-literal assignment: ($overline(x_1) or overline(x_2) or x_3$). Until now, our 2-literal gadget only processed $overline(x_1) or overline(x_2)$ and fails with a valid 3-coloring.
+But what about $x_3$? This single literal can still make the entire clause true. We need to do two things while constructing the 3-literal gadget: Add the new literal $x_3$ to the 2-literal gadget and adapt the coloring strategy that we used for the 2-literal gadget. \
 We follow the same approach as before: All input literals are to the very left of the graph and a single green vertex is on the very right. \
 
 #figure(
@@ -425,7 +425,7 @@ We follow the same approach as before: All input literals are to the very left o
   caption: [Gadget graph for 3-literals]
 )
 
-In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-coloring of the gadget graph for every assignment:
+In total, we have $2^3$ input assignments. Let’s see if we can achieve a valid 3-coloring of the gadget graph for every assignment:
 
 #pagebreak()
 
@@ -842,7 +842,7 @@ In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-c
 ]
 
 With the 3-literal gadget, we have proven soundness. If the assignment $x$ is not valid (all variable vertices are red), there is no valid coloring.
-In every other case, there is a valid coloring. Formally , we have shown: $x in.not L <-> f(x) in.not L'$.
+In every other case, there is a valid coloring. Formally, we have shown: $x in.not L <-> f(x) in.not L'$. 
 
 \
 
