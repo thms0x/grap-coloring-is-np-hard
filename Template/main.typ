@@ -857,3 +857,10 @@ In total, we can construct the graph $G$ in $O(n + m)$ time which is polynomial 
 Thus, our mapping function $f$ is computable in polynomial time.
 
 ]
+
+
+=== References
+#show link: set text(fill: blue)
+
+- Nickvash Kani, #link("https://www.youtube.com/watch?v=JOZS9_ijZ7o")[_3SAT to 3Color reduction_] (2024) \
+- Lalla Mouatadid, #link("https://www.cs.toronto.edu/~lalla/373s16/notes/3col.pdf")[_Introduction to Complexity Theory: 3-Colouring is NP-complete_] (2014)
