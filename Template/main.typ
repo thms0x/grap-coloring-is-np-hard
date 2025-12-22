@@ -19,7 +19,7 @@
 
 == What is the coloring problem?
 Given a graph $G(V,E)$, the graph coloring problem assigns a color-mapping for each vertex to its corresponding color $c: V(G) -> {1,2,...,k}$
-for which $forall(u, v) in E(G): c(u) != c(v)$ for any two vertices $u,v in G$ and a number $k in NN$.
+for which $forall(u, v) in E(G): c(u) != c(v)$ for any two adjacent vertices $u,v in G$ and a number $k in NN$.
 If this statement holds, we can call the graph *proper*.
 
 The k-coloring problem asks if a given graph $G$ can be properly colored using at most $k$ distinct colors. 
@@ -65,7 +65,7 @@ This proofs that 3-coloring is in NP.
 == Theorem: 3-Coloring is NP-hard
 #proof[
 We want to show that 3-Coloring is NP-hard by reducing from 3-SAT which is known to be NP-complete. \
-We have an arbitary 3-SAT formula F. We have a language L = {x $in {0,1}^*$: F(x) = 1} $in {0,1}^*$ and a language L' = {c $in {0,1}^*$: c is valid 3-coloring of graph G} $in {0,1}^*$.
+We have an arbitary 3-SAT formula F. We have a language L = {x $in {0,1}^*$: F(x) = 1} $subset.eq {0,1}^*$ and a language L' = {c $in {0,1}^*$: c is valid 3-coloring of graph G} $in {0,1}^*$.
 In words, L contains all valid assignments for F and L' contains all valid 3-colorings for a graph G.
 We now create a polynomial-time algorithm f(x) that maps elements from L to L' and elements of $overline(L)$ to elements of $overline(L')$.
 Further, we create an algorithm that returns 1 iff f(x) $in L'$ iff x $in L$.
@@ -110,7 +110,7 @@ For each of these variables $x_i$ we introduce 2 vertices in our graph: \
   caption: [Variable coloring]
 )
 
-We already see, that the vertices have two distinct colors. The vertices are connected by an edge to force $x_i eq.not overline(x_i)$, which is always the case. 
+We already see, that the vertices have two distinct colors. The vertices are connected by an edge to force $c(x_i) eq.not c(overline(x_i))$, which is always the case. 
 As we are doing a 3-coloring, one color is still missing. How can we make sure that the vertices $x_i$ and $overline(x_i)$ are always colored with exactly 2 colors, when there are 3 colors to choose from?
 We somehow need to force $x_i$ and $overline(x_i)$ to only be of colors green and red. Let's introduce the color blue as our third color to the graph.
 
