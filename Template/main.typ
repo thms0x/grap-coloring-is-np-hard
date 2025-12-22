@@ -844,11 +844,7 @@ In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-c
 With the 3-literal gadget, we have proven soundness. If the assignment $x$ is not valid (all variable vertices are red), there is no valid coloring.
 In every other case, there is a valid coloring. Formally , we have shown: $x in.not L <-> f(x) in.not L'$.
 
-<<<<<<< HEAD
 \
-=======
-
-#pagebreak()
 
 === Mapping is done in polynomial time
 
@@ -1034,17 +1030,13 @@ canvas({
 )
 
 Now we also prove that the mapping is done in polynomial time. \
->>>>>>> 005602d (add polynomial proof)
 
 #figure(
   image("f_diagram.png", width: 80%),
   caption: "Source: Berechenbarkeit und Komplexität JKU Vorlesungsfolien WS 2025",
   supplement: none
 
-<<<<<<< HEAD
 )]
-=======
 )
 
-]
->>>>>>> 005602d (add polynomial proof)
+
