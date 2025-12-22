@@ -5,10 +5,9 @@
 #set page(
   header: lib.header(
     lva_name: "Introduction to Computational Complexity",
-    matr_nr: "k1241678",
-    student_name: "Thomas Rafetseder",
-    student_name1: "Simon Feiler",
-    student_name2: "Florian Burghuber",
+    student_name: "Thomas Rafetseder K1241678",
+    student_name1: "Simon Feiler K12427161",
+    student_name2: "Florian Burghuber K12404463",
     title: "",
   ),
 )
