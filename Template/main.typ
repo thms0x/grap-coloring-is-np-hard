@@ -221,7 +221,7 @@ In total we have $2^2$ input assignments. Let's see if we can achive a valid 3-c
     line("g1", "g3")
     line("g2", "g3")
   }),
-  caption: [$overline(x_1) or overline(x_2)$]
+  caption: [Assignment: $overline(x_1) or overline(x_2)$]
 ) <fig_notx1_notx2>
 
 \
@@ -259,7 +259,7 @@ In total we have $2^2$ input assignments. Let's see if we can achive a valid 3-c
     line("g1", "g3")
     line("g2", "g3")
   }),
-  caption: [$overline(x_1) or x_2$]
+  caption: [Assignment: $overline(x_1) or x_2$]
 )
 
 #colbreak()
@@ -297,7 +297,7 @@ In total we have $2^2$ input assignments. Let's see if we can achive a valid 3-c
     line("g1", "g3")
     line("g2", "g3")
   }),
-  caption: [$x_1 or overline(x_2)$]
+  caption: [Assignment: $x_1 or overline(x_2)$]
 )
 
 \
@@ -335,7 +335,7 @@ In total we have $2^2$ input assignments. Let's see if we can achive a valid 3-c
     line("g1", "g3")
     line("g2", "g3")
   }),
-  caption: [$x_1 or x_2$]
+  caption: [Assignment: $x_1 or x_2$]
 )]
 
 We can see in figure @fig_notx1_notx2 that there is no valid 3-coloring for $overline(x_1) or overline(x_2)$. This is exactly the behaviour we want: 
@@ -401,7 +401,7 @@ We follow the same approach as before: All input literals are to the very left o
   caption: [Gadget graph for 3-literals]
 )
 
-In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-coloring of the gadget graph for every assignment:
+In total we have $2^3$ input assignments. Let’s see if we can achive a valid 3-coloring of the gadget graph for every assignment:
 
 #pagebreak()
 
@@ -454,7 +454,7 @@ In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-c
     line("g4", "g6")
     line("g5", "g6")
   }),
-  caption: [$overline(x_1) or overline(x_2) or overline(x_3)$]
+  caption: [Assignment:  $overline(x_1) or overline(x_2) or overline(x_3)$]
 )
 
 #figure(
@@ -505,7 +505,7 @@ In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-c
     line("g4", "g6")
     line("g5", "g6")
   }),
-  caption: [$overline(x_1) or overline(x_2) or x_3$]
+  caption: [Assignment: $overline(x_1) or overline(x_2) or x_3$]
 )
 
 #figure(
@@ -556,7 +556,7 @@ In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-c
     line("g4", "g6")
     line("g5", "g6")
   }),
-  caption: [$overline(x_1) or x_2 or overline(x_3)$]
+  caption: [Assignment: $overline(x_1) or x_2 or overline(x_3)$]
 )
 
 #figure(
@@ -607,7 +607,7 @@ In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-c
     line("g4", "g6")
     line("g5", "g6")
   }),
-  caption: [$overline(x_1) or x_2 or x_3$]
+  caption: [Assignment: $overline(x_1) or x_2 or x_3$]
 )
 
 #colbreak()
@@ -660,7 +660,7 @@ In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-c
     line("g4", "g6")
     line("g5", "g6")
   }),
-  caption: [$x_1 or overline(x_2) or overline(x_3)$]
+  caption: [Assignment: $x_1 or overline(x_2) or overline(x_3)$]
 )
 
 #figure(
@@ -711,7 +711,7 @@ In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-c
     line("g4", "g6")
     line("g5", "g6")
   }),
-  caption: [$x_1 or overline(x_2) or x_3$]
+  caption: [Assignment: $x_1 or overline(x_2) or x_3$]
 )
 
 #figure(
@@ -762,7 +762,7 @@ In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-c
     line("g4", "g6")
     line("g5", "g6")
   }),
-  caption: [$x_1 or x_2 or overline(x_3)$]
+  caption: [Assignment: $x_1 or x_2 or overline(x_3)$]
 )
 
 #figure(
@@ -813,7 +813,7 @@ In total we have 2^3 input assignments. Let’s see if we can achive a valid 3-c
     line("g4", "g6")
     line("g5", "g6")
   }),
-  caption: [$x_1 or x_2 or x_3$]
+  caption: [Assignment: $x_1 or x_2 or x_3$]
 )
 ]
 
@@ -1000,8 +1000,4 @@ Now we also prove that the mapping is done in polynomial time. \
 
 )
 
-Now we are done.  
-Lets gooooo Simon!!! :)
-
 ]
-
