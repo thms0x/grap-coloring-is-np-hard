@@ -432,7 +432,7 @@ We follow the same approach as before: All input literals are to the very left o
 #pagebreak()
 
 In total, we have $2^3$ input assignments. Let’s see if we can achieve a valid 3-coloring of the gadget graph for every assignment. 
-For the assignments below, assume the green vertex to the very right is fixed by the color triangle as shown in figure <fig_3_gadget>.
+For the assignments below, assume the green vertex to the very right is fixed by the color triangle as shown in figure @fig_3_gadget.
 
 #columns(2)[
 #figure(
