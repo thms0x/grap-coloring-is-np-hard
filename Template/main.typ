@@ -109,39 +109,68 @@ For each of these variables $x_i$ we introduce 2 vertices in our graph: \
   caption: [Variable coloring]
 )
 
-We already see, that the vertices have two distinct colors. The vertices are connected by an edge to force $c(x_i) eq.not c(overline(x_i))$, which is always the case. 
+We already see, that the vertices need to have two distinct colors. The vertices are connected by an edge to force $c(x_i) eq.not c(overline(x_i))$, which needs to be always the case. 
 As we are doing a 3-coloring, one color is still missing. How can we make sure that the vertices $x_i$ and $overline(x_i)$ are always colored with exactly 2 colors, when there are 3 colors to choose from?
-We somehow need to force $x_i$ and $overline(x_i)$ to only be of colors green and red. Let's introduce the color blue as our third color to the graph.
+We somehow need to force $x_i$ and $overline(x_i)$ to only be of the same distinct colors, lets say green and red. 
+
 
 #figure(
   canvas({
     import draw: *
 
     let node-radius = 0.7
-	let stroke-thickness = 2pt
     let node-fill = white
     let node-stroke-black = black
-    let node-stroke-green = green
+    let node-stroke-blue = blue
     let node-stroke-red = red
-	let node-stroke-blue = blue
+    let node-stroke-green = green
+	let stroke-thickness = 2pt
 
-    circle((0.0, 3.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-green, thickness: stroke-thickness), name: "v1")
-    content("v1", [$x_i$]) 
+    circle((0.0, 3.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-green, thickness: stroke-thickness), name: "v1", stroke-thickness: stroke-thickness)
+    content("v1", [T]) 
 
-    circle((4.0, 3.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-red, thickness: stroke-thickness), name: "v2")
-    content("v2", [$overline(x_i)$])
+    circle((4.0, 3.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-red, thickness: stroke-thickness), name: "v2", stroke-thickness: stroke-thickness)
+    content("v2", [F])
 
-    circle((2.0, 0.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-blue, thickness: stroke-thickness), name: "v3")
+    circle((2.0, 0.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-blue, thickness: stroke-thickness), name: "v3", stroke-thickness: stroke-thickness)
     content("v3", [B])
+
+    circle((6.0, 1.0), radius: node-radius, fill: node-fill, stroke: node-stroke-black, name: "v4", stroke-thickness: stroke-thickness)
+    content("v4", [$x_i$])
+
+    circle((6.0, -1.0), radius: node-radius, fill: node-fill, stroke: node-stroke-black, name: "v5", stroke-thickness: stroke-thickness)
+    content("v5", [$overline(x_i) $])
+
+    circle((1.0, -3.0), radius: node-radius, fill: node-fill, stroke: node-stroke-black, name: "v6", stroke-thickness: stroke-thickness)
+    content("v6", [$x_2$])
+
+    circle((3.0, -3.0), radius: node-radius, fill: node-fill, stroke: node-stroke-black, name: "v7", stroke-thickness: stroke-thickness)
+    content("v7", [$overline(x_2) $])
+
+    circle((-2.0, 1.0), radius: node-radius, fill: node-fill, stroke: node-stroke-black, name: "v8", stroke-thickness: stroke-thickness)
+    content("v8", [$x_1$])
+
+    circle((-2.0, -1.0), radius: node-radius, fill: node-fill, stroke: node-stroke-black, name: "v9", stroke-thickness: stroke-thickness)
+    content("v9", [$overline(x_1) $])
+
 
     line("v1", "v2")
     line("v2", "v3")
-	line("v3", "v1")
+    line("v3", "v1")
+    line("v3", "v4")
+    line("v3", "v5")
+    line("v3", "v6")
+    line("v3", "v7")
+    line("v3", "v8")
+    line("v3", "v9")
+    line("v8", "v9")
+    line("v7", "v6")
+    line("v4", "v5")
   }),
-  caption: [Color triangle]
+  caption: [Color Triangle with variable vertices] 
 )
 
-We have connected $x_i$ and $overline(x_i)$ to the vertex $B$. This forces $x_i$ and $overline(x_i)$ to be of colors green and red, because otherwise we would no longer have a valid 3-coloring.
+To enforce the color semantics globally, we construct a global reference triangle consisting of three vertices *T*(True/Green), *F*(False/Red), *B*(Base/Blue) and connect every pair $x_i$ and $overline(x_i)$. This forces $x_i$ and $overline(x_i)$ to be either of colors green or red, because otherwise we would no longer have a valid 3-coloring.
 We call this process trapping. A vertex or multiple vertices are trapped to have a subset of colors. 
 With the concept of trapping, we can make sure that the variables form a valid boolean assignment. We can now build a logical OR ($or$) clause.
 
@@ -181,6 +210,9 @@ Let's assume we have a clause with only 2 literals: $x_1 or x_2$. This clause is
     circle((7.5, 2.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-blue, thickness: stroke-thickness), name: "g5")
     content("g5", [B])
 
+    circle((9.5, 3.0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-green, thickness: stroke-thickness), name: "g6")
+    content("g6", [T])
+
     line("x1", "g1")
     line("x2", "g2")
 
@@ -191,13 +223,17 @@ Let's assume we have a clause with only 2 literals: $x_1 or x_2$. This clause is
 	line("g4", "g3")
 	line("g5", "g3")
 	line("g4", "g5")
+	line("g5", "g6")
+	line("g4", "g6")
 
   }),
   caption: [Gadget graph for 2 literals]
 )
 
-Our vertices $x_1$ and $x_2$ represent the input assignment. Let the vertex $x_1 or x_2$ represent the output. So for the given clause $x_1 or x_2$, the vertex to the very right should be green, when either or both vertices $x_1$, $x_2$ are green.
-In total, we have $2^2$ input assignments. Let's see if we can achieve a valid 3-coloring of the gadget graph for every possible assignment: \
+Our vertices $x_1$ and $x_2$ represent the input assignment. Let the vertex $x_1 or x_2$ represent the output. So for the given clause $x_1 or x_2$, the vertex to the very right should be green, when either or both vertices $x_1$, $x_2$ are green. We force this node to be always green by connecting the output vertex to the $B$ and $F$ node of the color triangle on the very right. \
+In total, we have $2^2$ input assignments. Let's see if we can achieve a valid 3-coloring of the gadget graph for every possible assignment _(for simplicity the connection to the color triangle is not shown in the following figures)_:
+
+#pagebreak()
 
 #columns(2)[
 #figure(
@@ -363,9 +399,7 @@ But what about $x_3$? This single literal can still make the entire clause true.
 We follow the same approach as before: All input literals are to the very left of the graph and a single green vertex is fixed by the color triangle on the very right. \
 
 \
-\
-\
-\
+
 
 #figure(
   canvas({
@@ -408,6 +442,9 @@ We follow the same approach as before: All input literals are to the very left o
     circle((12.5, 0), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-blue, thickness: stroke-thickness), name: "g8")
     content("g8", [B])
 
+    circle((15.5, 1.5), radius: node-radius, fill: node-fill, stroke: (paint: node-stroke-green, thickness: stroke-thickness), name: "g9")
+    content("g9", [T])
+
     line("x1", "g1")
     line("x2", "g2")
     line("x3", "g5")
@@ -425,11 +462,12 @@ We follow the same approach as before: All input literals are to the very left o
 	line("g6", "g7")
 	line("g6", "g8")
 	line("g7", "g8")
+	line("g8", "g9")
+	line("g7", "g9")
   }),
   caption: [Gadget graph for 3-literals]
 ) <fig_3_gadget>
 
-#pagebreak()
 
 In total, we have $2^3$ input assignments. Let’s see if we can achieve a valid 3-coloring of the gadget graph for every assignment. 
 For the assignments below, assume the green vertex to the very right is fixed by the color triangle as shown in figure @fig_3_gadget.
@@ -851,12 +889,15 @@ In every other case, there is a valid coloring. Formally, we have shown: $x in.n
 For every clause $m$, one 3-literal gadget will be created. If one gadget cannot be 3-colored because of the corresponding clause being unsatisfiable, the entire graph will fail to be 3-colored. \
 This is exactly the behaviour we want, because for a 3-SAT formula to be satisfiable, every single clause has to be satisfiable.
 
+#pagebreak()
+
 === Mapping is done in polynomial time
 
 Finally, we need to show that our mapping function $f$ is computable in polynomial time. \
-Basically, we need to construct the graph $G$ from the 3-SAT instance in polynomial time in 2 steps. \
+Basically, we need to construct the graph $G$ from the 3-SAT instance in polynomial time in 3 steps. \
 
-- Iterate over every variable in the 3-SAT instance and create three nodes for the variable, its negation and the base. Connect them as shown in the figure. This can be done in $O(n)$ time where $n$ is the number of variables. \
+- Create the base triangle with the three nodes colored red, blue and green. This can be done in constant time $O(1)$. \
+- Iterate over every variable in the 3-SAT instance and create two nodes for the variable and its negation and connect it to the base node. Connect them as shown in the figure. This can be done in $O(n)$ time where $n$ is the number of variables. \
 - Iterate over every clause in the 3-SAT instance and create the corresponding gadget graph for the clause. Connect the literals to the corresponding variable nodes. This can be done in $O(m)$ time where $m$ is the number of clauses. \
 
 In total, we can construct the graph $G$ in $O(n + m)$ time which is polynomial in the size of the 3-SAT instance. \
